@@ -180,7 +180,7 @@ class FinanceNER(Pipeline):
   along with their details mentioned below:
   1. their designation,
   2. their companies ,
-  3. Number or percentage of shares bought
+  3. Number or percentage of shares bought or sold
   4. Type of shares
   5. acquistions
 
@@ -221,11 +221,11 @@ class FinanceNER(Pipeline):
         device = f"cuda:{torch.cuda.current_device()}"
         text = model_inputs[i]
         print("*******************************************")
-        print("Input sentence : ",text.strip())
+        print("input sentence : ",text.strip())
         output = self.generate_output(text.strip(),self.model,device)
         refined_output = ",".join(set([i.strip("\n") for i in output.split("### Response:")]))
         # if re.search(r"Response Value",refined_output):
-        print("Output: ",refined_output)
+        print("output: ",refined_output)
         print("********************************************")
         json_out.append(refined_output)
     outputs = ",".join(json_out)
